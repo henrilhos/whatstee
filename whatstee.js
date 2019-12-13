@@ -52,7 +52,15 @@ function getPhones() {
     .map(({ innerText }) => convertPhone(innerText))
 }
 
-function init() {
+function getCandidateId() {
+  const url = new URL(document.URL.replace(/\#+/g, ''))
+  const searchParams = new URLSearchParams(url.search)
+  const candidateId = searchParams.get('candidate')
+
+  return candidateId
+}
+
+const init = () => {
   if (document.querySelectorAll('rt-candidate-profile-information-editor-group').length === 0) {
     setTimeout(init, 1000)
 
@@ -60,8 +68,25 @@ function init() {
   }
 
   const phones = getPhones()
+  const candidateId = getCandidateId()
 
   insertWAButton(phones)
+  validateCandidate(candidateId)
+}
+
+const validateCandidate = (oldCandidateId = undefined) => {
+  const candidateId = getCandidateId()
+
+  if (oldCandidateId !== candidateId) {
+    init()
+    return
+  } else {
+    setTimeout(() => {
+      validateCandidate(candidateId)
+    }, 1000);
+
+    return
+  }
 }
 
 (function () {
