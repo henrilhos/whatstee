@@ -1,15 +1,12 @@
+/* eslint-disable space-before-function-paren */
 /* eslint-disable no-unused-vars */
 
-let emails
-let phones
-let socials
+function removeNotDigitCharacters(phone) { return '55' + phone.replace(/\D+/g, '') }
+function addNinthDigit(phone) { return '9' + phone }
+function addDDD(phone, ddd) { return ddd + phone }
+function addCountryCode(phone, code) { return code + phone }
 
-const removeNotDigitCharacters = (phone) => '55' + phone.replace(/\D+/g, '')
-const addNinthDigit = (phone) => '9' + phone
-const addDDD = (phone, ddd) => ddd + phone
-const addCountryCode = (phone, code) => code + phone
-
-const convertPhone = (phone) => {
+function convertPhone(phone) {
   phone = removeNotDigitCharacters(phone)
 
   const length = phone.length
@@ -29,16 +26,18 @@ const convertPhone = (phone) => {
   return phone
 }
 
-const getWAButton = (phone) => `
-  <span class="ng-star-inserted" style="margin-top: 8px; margin-bottom: 8px; margin-right: 12px;">
-      <a target="_blank" href="https://wa.me/${phone}" class="ng-star-inserted">
-          <img width="24" height="24" draggable="false" style="vertical-align: top;"
-              src="https://www.shareicon.net/data/512x512/2016/07/10/119959_whatsapp_512x512.png">
-      </a>
-  </span>
+function getWAButton(phone) {
+  return `
+    <span class="ng-star-inserted" style="margin-top: 8px; margin-bottom: 8px; margin-right: 12px;">
+        <a target="_blank" href="https://wa.me/${phone}" class="ng-star-inserted">
+            <img width="24" height="24" draggable="false" style="vertical-align: top;"
+                src="https://www.shareicon.net/data/512x512/2016/07/10/119959_whatsapp_512x512.png">
+        </a>
+    </span>
   `
+}
 
-const insertWAButton = (phones) => {
+function insertWAButton(phones) {
   const buttons = document.querySelectorAll('rt-candidate-profile-information-editor-group')[2]
     .querySelector('.field__values-list')
     .innerHTML + phones.map(getWAButton).join('')
@@ -48,11 +47,23 @@ const insertWAButton = (phones) => {
     .innerHTML = buttons
 }
 
-// Execution code
+function getPhones() {
+  return [...document.querySelectorAll('rt-candidate-profile-information-editor-group')[1].querySelectorAll('a')]
+    .map(({ innerText }) => convertPhone(innerText))
+}
 
-[emails, phones, socials] = document.querySelectorAll('rt-candidate-profile-information-editor-group')
+function init() {
+  if (document.querySelectorAll('rt-candidate-profile-information-editor-group').length === 0) {
+    setTimeout(init, 1000)
 
-phones = [...phones.querySelectorAll('a')]
-  .map(({ innerText }) => convertPhone(innerText))
+    return
+  }
 
-insertWAButton(phones)
+  const phones = getPhones()
+
+  insertWAButton(phones)
+}
+
+(function () {
+  init()
+})()
