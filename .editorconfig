@@ -1,0 +1,8 @@
+root = true
+
+[*]
+end_on_line = lf
+trim_trailing_whitespace = true
+charset = utf-8
+indent_style = space
+indent_size = 2
