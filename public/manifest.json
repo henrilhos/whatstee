@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+
+    "name": "WhatsTee",
+    "description": "A Recruitee extension to chat with candidates via WhatsApp",
+    "version": "0.1.0",
+
+    "content_scripts": [
+        {
+            "matches": ["*://app.recruitee.com/*"],
+            "js": ["js/vendor.js", "js/content_scripts.js"]
+        }
+    ]
+}
