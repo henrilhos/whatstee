@@ -1,6 +1,6 @@
 {
   "name": "WhatsTee",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Recruitee extension to chat with candidates via WhatsApp.",
   "icons": {},
   "manifest_version": 2,
