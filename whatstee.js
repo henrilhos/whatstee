@@ -28,27 +28,30 @@ function convertPhone(phone) {
 
 function getWAButton(phone) {
   return `
-    <span class="ng-star-inserted" style="margin-top: 8px; margin-bottom: 8px; margin-right: 12px;">
-        <a target="_blank" href="https://wa.me/${phone}" class="ng-star-inserted">
-            <img width="24" height="24" draggable="false" style="vertical-align: top;"
-                src="https://www.shareicon.net/data/512x512/2016/07/10/119959_whatsapp_512x512.png">
-        </a>
-    </span>
+  <div _ngcontent-aqy-c70="" layout-horizontal="">
+    <a _ngcontent-aqy-c70="" class="social-link" target="_blank" draggable="false"
+      href="https://wa.me/${phone}">
+      <img _ngcontent-aqy-c70="" draggable="false" width="24" height="24"
+        src="https://www.shareicon.net/data/512x512/2016/07/10/119959_whatsapp_512x512.png" style="vertical-align: top;">
+    </a>
+  </div>
   `
 }
 
 function insertWAButton(phones) {
-  const buttons = document.querySelectorAll('rt-candidate-profile-information-editor-group')[2]
-    .querySelector('.field__values-list')
+  const buttons = document.querySelectorAll('.field-row')[2]
+    .querySelector('.field-value')
+    .querySelector('div')
     .innerHTML + phones.map(getWAButton).join('')
 
-  document.querySelectorAll('rt-candidate-profile-information-editor-group')[2]
-    .querySelector('.field__values-list')
+  document.querySelectorAll('.field-row')[2]
+    .querySelector('.field-value')
+    .querySelector('div')
     .innerHTML = buttons
 }
 
 function getPhones() {
-  return [...document.querySelectorAll('rt-candidate-profile-information-editor-group')[1].querySelectorAll('a')]
+  return [...document.querySelectorAll('.field-row')[1].querySelectorAll('a')]
     .map(({ innerText }) => convertPhone(innerText))
 }
 
@@ -61,7 +64,7 @@ function getCandidateId() {
 }
 
 const init = () => {
-  if (document.querySelectorAll('rt-candidate-profile-information-editor-group').length === 0) {
+  if (document.querySelectorAll('rt-candidate-profile-information-new').length === 0) {
     setTimeout(init, 1000)
 
     return
