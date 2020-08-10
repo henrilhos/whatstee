@@ -18,7 +18,7 @@
   "homepage": "https://github.com/castilh0s/recruitee-whatsapp-extension#readme",
   "devDependencies": {
     "eslint": "^6.7.2",
-    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
